@@ -1,0 +1,50 @@
+6일차 커밋
+
+desc <table name> : 테이블 구조 출력
+select * from department <table name>
+select * from tab : 모든 테이블 리스트들을 출력
+
+create table student
+(
+    stu_id varchar2(10),
+    resident_id varchar2(14) not null,
+    name varchar(10) not null,
+    year int,
+    address varchar2(10),
+    dept_id varchar2(10),
+    constraint pk_student primary key(stu_id),
+    constraint fk_student foreign key(dept_id) references department(dept_id)
+);
+
+create table course
+(
+    course_id VARCHAR2(10),
+    title varchar(14) not null,
+    credit int,
+    constraint pk_course primary key(course_id)  
+);
+
+create table class
+(
+    class_id VARCHAR2(10),
+    course_id varchar(10),
+    year int,
+    semester int,
+    division char(1),
+    prof_id varchar2(10),
+    classroom varchar2(9),
+    enroll int,
+    CONSTRAINT pk_class primary key(class_id),
+    CONSTRAINT fk_class1 REFERENCES foreign key course(course_id),
+    CONSTRAINT fk_class2 REFERENCES foreign key professor(prof_id)
+);
+
+create table takes
+(
+    stu_id varchar2(10),
+    class_id varchar2(10),
+    grade char(5),
+    constraint pk_takes primary key(stu_id, class_id),
+    constraint fk_takes1 foreign key(stu_id) references student(stu_id),
+    constraint fk_takes2 foreign key(class_id) references student(class_id)
+)
